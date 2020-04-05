@@ -1,6 +1,7 @@
 package models
 
 import(
+    "github.com/wcl48/valval"
     "time"
     "regexp"
 )
