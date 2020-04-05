@@ -1,1 +1,8 @@
-body {color: #c0392b}
+body {
+  color: #c0392b
+}
+
+h1{
+  text-align: center;
+  background-color: blue;
+}
