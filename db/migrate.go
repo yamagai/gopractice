@@ -3,7 +3,7 @@ package main
 import (
     "github.com/jinzhu/gorm"
     _ "github.com/go-sql-driver/mysql"
-    "models"
+    "./models"
 )
 
 func main(){
