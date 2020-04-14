@@ -1,62 +1,53 @@
 package main
 
 import (
-  "fmt"
-  "os"
-  "github.com/joho/godotenv"
-  "github.com/jinzhu/gorm"
-  _ "github.com/go-sql-driver/mysql"
   "time"
+  "net/http"
+  "github.com/gin-gonic/gin"
 )
 
-type User struct {
-    Id int64 `gorm:"primary_key"`
-    Name string `sql:"size:255"`
-    CreatedAt time.Time
-    UpdatedAT time.Time
-    DeletedAt time.Time
-}
-
-func GetDBConn() *gorm.DB {
-   db, err := gorm.Open(GetDBConfig())
-   if err != nil {
-      panic(err)
-   }
-
-   db.LogMode(true)
-   return db
-}
-
-func GetDBConfig() (string, string) {
-   DBMS := "mysql"
-   USER := os.Getenv("USER")
-   PASS := os.Getenv("PASS")
-   PROTOCOL := ""
-   DBNAME := os.Getenv("DBNAME")
-   OPTION := "charset=utf8&parseTime=True&loc=Local"
-
-   CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME + "?" + OPTION
-
-   return DBMS, CONNECT
+type ToDo struct {
+  Hito string
+  Content string
+  Status int
+  CreatedAt time.Time
 }
 
 func main() {
-  err := godotenv.Load(fmt.Sprintf("../%s.env", os.Getenv("GO_ENV")))
-    if err != nil {
-        // .env読めなかった場合の処理
-    }
+  todo := []ToDo{
+    ToDo {
+      Hito: "yamamoto",
+      Content: "早起き",
+      Status: 0,
+      CreatedAt: time.Now(),
+    },
+    ToDo {
+      Hito: "katsuhei",
+      Content: "インターン応募",
+      Status: 0,
+      CreatedAt: time.Now(),
+    },
+    ToDo {
+      Hito: "kohei",
+      Content: "案件とる",
+      Status: 0,
+      CreatedAt: time.Now(),
+    },
+  }
 
-    env := os.Getenv("GO_ENV")
-    DBUser := os.Getenv("USER")
-    DBPass := os.Getenv("PASS")
-    DBName := os.Getenv("DBNAME")
 
-    fmt.Println(env)
-    fmt.Println(DBUser)
-    fmt.Println(DBName)
-    fmt.Println(DBPass)
+  r := gin.Default()
+  r.LoadHTMLFiles("./templates/index.html")
 
-   db := GetDBConn()
-   db.AutoMigrate(&User{})
-
+	r.GET("/hello", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "pong",
+		})
+	})
+  r.GET("/", func(c *gin.Context) {
+		c.HTML(http.StatusOK, "index.html", map[string]interface{}{
+      "todo": todo,
+    })
+	})
+	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
 }

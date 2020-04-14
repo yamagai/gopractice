@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Go練習</title>
+</head>
+<body>
+  <h1>ToDoリスト</h1>
+  <ul>
+     {{range .todo}}
+     <li>{{.CreatedAt}} {{.Hito}} {{.Content}} {{.Status}}</li>
+     {{end}}
+  </ul>
+</body>
+</html>
