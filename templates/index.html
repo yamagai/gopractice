@@ -2,14 +2,24 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Go練習</title>
+  <title>Go練習アプリ</title>
 </head>
 <body>
-  <h1>ToDoリスト</h1>
-  <ul>
-     {{range .todo}}
-     <li>{{.CreatedAt}} {{.Hito}} {{.Content}} {{.Status}}</li>
-     {{end}}
-  </ul>
+<h2>暇人掲示板</h2>
+<form method="post" action="/new">
+    <p>名前：<input type="text" name="name" size="30" placeholder="名前を入力してください" ></p>
+    <p>暇な日時：<input type="datetime-local" name="begintime">〜<input type="datetime-local" name="finishtime"></p>
+    <p>やりたいこと：<input type="text" name="todo" size="30" placeholder="例)Zoom飲み会" ></p>
+    <p><input type="submit" value="Send"></p>
+</form>
+
+<ul>
+    {{ range .himajins }}
+        <li>名前：{{ .Name }} 暇な日時：{{ .Begintime }}〜{{ .FinishTime }} やりたいこと：{{.Todo}}
+            <label><a href="/detail/{{.ID}}">編集</a></label>
+            <label><a href="/delete_check/{{.ID}}">削除</a></label>
+        </li>
+    {{end}}
+</ul>
 </body>
 </html>

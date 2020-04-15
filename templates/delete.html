@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Go練習</title>
+</head>
+<body>
+<h1>削除確認</h1>
+<p>本当に削除しますか？</p>
+<ul>
+    <li>名前： {{.himajins.Name}}</li>
+    <li>暇な日時： {{.himajins.Begintime}}〜{{.himajins.FinishTime}}</li>
+    <li>やりたいこと： {{.himajins.Todo}}</li>
+</ul>
+
+<form method="post" action="/delete/{{.himajins.ID}}">
+    <p><input type="submit" value="削除"></p>
+    <p><a href="/">戻る</a></p>
+</form>
+</body>
+</html>

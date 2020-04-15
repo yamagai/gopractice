@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Go練習</title>
+</head>
+<body>
+<h2>内容変更</h2>
+
+<form method="post" action="/update/{{.himajins.ID}}">
+    <p>名前：<input type="text" name="name" size="30" value="{{.himajins.Name}}"></p>
+    <p>暇な日時：<input type="datetime-local" name="begintime" value="{{.himajins.Begintime}}">〜<input type="datetime-local" name="finishtime" value="{{.himajins.Finishtime}}"></p>
+    <p>やりたいこと：<input type="text" name="todo" size="30" value="{{.himajins.Todo}}" ></p>
+    <p><input type="submit" value="Send"></p>
+</form>
+</body>
+</html>
