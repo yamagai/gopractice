@@ -6,27 +6,9 @@
 </head>
 <body>
   <h1>ToDoリスト</h1>
-  <form action="/yaru" method="get">
-    ToDo:<input type="text" name="content">
-    やる人:<input type="text" name="hito">
-    <input type="submit" value="送信">
-  </form>
   <ul>
      {{range .todo}}
-       <li>
-         <form action="/done">
-           <input type="hidden" name="id" id="id" value="{{.ID}}">
-           <input type="hidden" name="status" id="status" value="{{.Status}}">
-          {{.CreatedAtS}} {{.Hito}} {{.Content}}
-             {{if eq .Status 0}}
-               未完了
-               <input type="submit" value="Done">
-              {{else}}
-               完了
-               <input type="submit" value="戻す">
-             {{end}}
-         </form>
-       </li>
+     <li>{{.CreatedAt}} {{.Hito}} {{.Content}} {{.Status}}</li>
      {{end}}
   </ul>
 </body>
