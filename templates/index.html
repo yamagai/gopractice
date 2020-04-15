@@ -15,7 +15,7 @@
 
 <ul>
     {{ range .himajins }}
-        <li>名前：{{ .Name }} 暇な日時：{{ .Begintime }}〜{{ .FinishTime }} やりたいこと：{{.Todo}}
+        <li>名前：{{ .Name }} 暇な日時：{{ .Begintime }}〜{{ .Finishtime }} やりたいこと：{{.Todo}}
             <label><a href="/detail/{{.ID}}">編集</a></label>
             <label><a href="/delete_check/{{.ID}}">削除</a></label>
         </li>

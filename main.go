@@ -11,7 +11,7 @@ type Himajin struct {
     gorm.Model
     Name   string
     Begintime string
-    FinishTime string
+    Finishtime string
     Todo string
 }
 
@@ -30,7 +30,7 @@ func dbInsert(name string, begintime string, finishtime string, todo string) {
     if err != nil {
         panic("データベース失敗（dbInsert)")
     }
-    db.Create(&Himajin{Name: name, Begintime: begintime, FinishTime: finishtime, Todo: todo})
+    db.Create(&Himajin{Name: name, Begintime: begintime, Finishtime: finishtime, Todo: todo})
     defer db.Close()
 }
 
@@ -44,7 +44,7 @@ func dbUpdate(id int, name string, begintime string, finishtime string, todo str
     db.First(&himajin, id)
     himajin.Name = name
     himajin.Begintime = begintime
-    himajin.FinishTime = finishtime
+    himajin.Finishtime = finishtime
     himajin.Todo = todo
     db.Save(&himajin)
     db.Close()
