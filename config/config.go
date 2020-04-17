@@ -24,6 +24,6 @@ func GetDBConfig() (string, string) {
 		CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME + "?parseTime=true"
 		return DBMS, CONNECT
 	}
-    CONNECT := "b1a81319703cc0:0bfc2129@us-cdbr-iron-east-01.cleardb.net/heroku_929f712b4d9906e?reconnect=true&parseTime=true"
+    CONNECT := "b1a81319703cc0:0bfc2129@tcp(us-cdbr-iron-east-01.cleardb.net:3306)/heroku_929f712b4d9906e?parseTime=true"
     return DBMS, CONNECT
 }
