@@ -1,6 +1,7 @@
 package models
 
 import(
+  "gopractice/config"
   "github.com/jinzhu/gorm"
 )
 
@@ -14,7 +15,7 @@ type Himajin struct {
 
 //DBマイグレート
 func DbInit() {
-    db, err := gorm.Open("mysql", "root:@(localhost)/gopractice?charset=utf8&parseTime=True")
+    db, err := gorm.Open(config.GetDBConfig())
     if err != nil {
         panic("データベース失敗（dbInit）")
     }
@@ -23,7 +24,7 @@ func DbInit() {
 }
 //DB追加
 func DbInsert(name string, begintime string, finishtime string, todo string) {
-    db, err := gorm.Open("mysql", "root:@(localhost)/gopractice?charset=utf8&parseTime=True")
+    db, err := gorm.Open(config.GetDBConfig())
     if err != nil {
         panic("データベース失敗（dbInsert)")
     }
@@ -33,7 +34,7 @@ func DbInsert(name string, begintime string, finishtime string, todo string) {
 
 //DB更新
 func DbUpdate(id int, name string, begintime string, finishtime string, todo string) {
-    db, err := gorm.Open("mysql", "root:@(localhost)/gopractice?charset=utf8&parseTime=True")
+    db, err := gorm.Open(config.GetDBConfig())
     if err != nil {
         panic("データベース失敗（dbUpdate)")
     }
@@ -49,7 +50,7 @@ func DbUpdate(id int, name string, begintime string, finishtime string, todo str
 
 //DB削除
 func DbDelete(id int) {
-    db, err := gorm.Open("mysql", "root:@(localhost)/gopractice?charset=utf8&parseTime=True")
+    db, err := gorm.Open(config.GetDBConfig())
     if err != nil {
         panic("データベース失敗（dbDelete)")
     }
@@ -61,7 +62,7 @@ func DbDelete(id int) {
 
 //DB全取得
 func DbGetAll() []Himajin {
-    db, err := gorm.Open("mysql", "root:@(localhost)/gopractice?charset=utf8&parseTime=True")
+    db, err := gorm.Open(config.GetDBConfig())
     if err != nil {
         panic("データベース失敗(dbGetAll())")
     }
@@ -73,7 +74,7 @@ func DbGetAll() []Himajin {
 
 //DB一つ取得
 func DbGetOne(id int) Himajin {
-    db, err := gorm.Open("mysql", "root:@(localhost)/gopractice?charset=utf8&parseTime=True")
+    db, err := gorm.Open(config.GetDBConfig())
     if err != nil {
         panic("データベース失敗(dbGetOne())")
     }
