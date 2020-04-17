@@ -13,12 +13,6 @@ func Env_dev_load() {
 		log.Fatalln(err)
 	}
 }
-func Env_pro_load(){
-  err := godotenv.Load("envfiles/production.env")
-	if err != nil {
-		log.Fatalln(err)
-	}
-}
 func GetDBConfig() (string, string) {
 	DBMS := "mysql"
 	if os.Getenv("GO_ENV") == "develop" {
@@ -30,7 +24,6 @@ func GetDBConfig() (string, string) {
 		CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME + "?parseTime=true"
 		return DBMS, CONNECT
 	}
-    Env_pro_load()
-    CONNECT := os.Getenv("HEROKU_DB_URL")
+    CONNECT := "b1a81319703cc0:0bfc2129@us-cdbr-iron-east-01.cleardb.net/heroku_929f712b4d9906e?reconnect=true&parseTime=true"
     return DBMS, CONNECT
 }
