@@ -1,1 +1,1 @@
-web: bin/golang-practice-app
+web: bin/gopractice
