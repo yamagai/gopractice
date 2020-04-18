@@ -10,6 +10,7 @@ import (
 func main() {
     router := gin.Default()
     router.LoadHTMLGlob("./templates/*.html")
+    router.Static("/assets", "./assets")
     models.DbInit()
     //Index
     router.GET("/", routes.Index)
