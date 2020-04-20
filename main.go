@@ -12,6 +12,7 @@ func main() {
     router.LoadHTMLGlob("./templates/*.html")
     router.Static("/assets", "./assets")
     models.DbInit()
+    models.UserDbInit()
     //Index
     router.GET("/", routes.Index)
     //Create
@@ -24,5 +25,16 @@ func main() {
     router.GET("/delete_check/:id", routes.Deletecheck)
     //Delete
     router.POST("/delete/:id", routes.Delete)
+
+    //以下seesion練習
+    user := router.Group("/user")
+    {
+        user.POST("/signup", routes.UserSignUp)
+        user.POST("/login", routes.UserLogIn)
+    }
+    router.GET("/login", routes.LogIn)
+    router.GET("/signup", routes.SignUp)
+    router.NoRoute(routes.NoRoute)
+
     router.Run()
 }
