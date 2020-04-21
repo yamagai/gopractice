@@ -2,7 +2,7 @@ package models
 
 import(
   "gopractice/crypto"
-
+  "fmt"
   "errors"
   "gopractice/config"
   "github.com/jinzhu/gorm"
@@ -15,7 +15,6 @@ type User struct {
     Password string
     authenticated bool
 }
-
 func NewUser(username, email string) *User {
     return &User{
         Username: username,
@@ -37,19 +36,17 @@ func (u *User) Authenticate() {
 
 ////
 //DB一つ取得
-func UserDbGetOne(username, password string) User {
+func UserDbGetOne(username, password string) (User, error) {
     db, err := gorm.Open(config.GetDBConfig())
     if err != nil {
         panic("データベース失敗(UserdbGetOne())")
     }
     var user User
-    buffer, exists := db.Where("name = ?", username).First(&user)
-    if !exists {
-        return nil, errors.New("ユーザー名が \"" + username + "\" のユーザーは存在しません")
+    if result := db.Where("Username = ?", username).First(&user); result.Error != nil {
+       fmt.Println("ユーザーが存在しません")
     }
-    user := buffer.(User) //怪しいここ
     if err := crypto.CompareHashAndPassword(user.Password, password); err != nil {
-        return nil, errors.New("user \"" + username + "\" doesn't exists")
+        return user, errors.New("user \"" + username + "\" doesn't exists")
     }
     db.Close()
     return user, nil
@@ -64,13 +61,14 @@ func UserDbInit() {
     defer db.Close()
 }
 //DB追加
-func UserDbInsert(username, email, password string) {
+func UserDbInsert(username, email, password string) error{
     db, err := gorm.Open(config.GetDBConfig())
     if err != nil {
         panic("データベース失敗（UserdbInsert)")
     }
     db.Create(&User{Username: username, Email: email, Password: password})
     defer db.Close()
+    return nil
 }
 
 // //DB更新
@@ -114,13 +112,15 @@ func UserDbInsert(username, email, password string) {
 // }
 
 //DBからusername一致するもの一つ取得
-func UserDbExists(username string) User {
+func UserDbExists(username string) (User, bool) {
     db, err := gorm.Open(config.GetDBConfig())
     if err != nil {
         panic("データベース失敗(UserdbExists())")
     }
     var user User
-    db.First(&user, username)
+    if result := db.First(&user, username); result.Error != nil {
+       return user, false
+    }
     db.Close()
-    return user
+    return user, true
 }

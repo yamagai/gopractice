@@ -1,6 +1,7 @@
 package main
 
 import (
+  "gopractice/sessions"
   "gopractice/models"
   "gopractice/routes"
 	"github.com/gin-gonic/gin"
@@ -11,6 +12,8 @@ func main() {
     router := gin.Default()
     router.LoadHTMLGlob("./templates/*.html")
     router.Static("/assets", "./assets")
+    store := sessions.NewManager()
+    router.Use(sessions.StartDefaultSession(store))
     models.DbInit()
     models.UserDbInit()
     //Index
@@ -31,6 +34,7 @@ func main() {
     {
         user.POST("/signup", routes.UserSignUp)
         user.POST("/login", routes.UserLogIn)
+        user.POST("/logout", routes.UserLogOut)
     }
     router.GET("/login", routes.LogIn)
     router.GET("/signup", routes.SignUp)

@@ -1,6 +1,7 @@
 package routes
 
 import (
+  "gopractice/sessions"
   "gopractice/models"
   "net/http"
   "strconv"
@@ -20,9 +21,29 @@ func NoRoute(ctx *gin.Context) {
 }
 //index
 func Index(ctx *gin.Context) {
-    himajin := models.DbGetAll()
+  himajin := models.DbGetAll()
+  session := sessions.GetDefaultSession(ctx)
+   buffer, exists := session.Get("user")
+   if !exists {
+        println("Unhappy home")
+        println("  sessionID: " + session.ID)
+        session.Save()
+        ctx.HTML(http.StatusOK, "index.html", gin.H{
+          "himajins": himajin,
+        })
+        return
+    }
+   user := buffer.(*models.User)
+   println("Home sweet home")
+   println("  sessionID: " + session.ID)
+   println("  username: " + user.Username)
+   println("  email: " + user.Email)
+   session.Save()
     ctx.HTML(http.StatusOK, "index.html", gin.H{
         "himajins": himajin,
+        "isLoggedIn": exists,
+        "username": user.Username,
+        "email": user.Email,
     })
 }
 
