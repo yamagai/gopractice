@@ -41,7 +41,7 @@ func UserSignUp(ctx *gin.Context) {
     passwordConf := ctx.PostForm("passwordconfirmation")
     if password != passwordConf {
         println("Error: password and passwordConf not match")
-        ctx.Redirect(http.StatusSeeOther, "//localhost:8080/")
+        ctx.Redirect(http.StatusSeeOther, "/")
         return
     }
     alreadyuser, exists := models.UserDbExists(username)

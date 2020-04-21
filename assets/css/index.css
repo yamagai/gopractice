@@ -11,7 +11,7 @@ body .box_imageRight {
   position: absolute;
   right: 0;
   width: 18%;
-  height: 100vh;
+  min-height: 100vh;
 }
 #sitetitle{
   text-align: center;
@@ -42,6 +42,19 @@ body .box_imageRight {
 }
 #indexbox ul{
   display: inline;
+}
+#signout-form{
+  text-align: center;
+  padding-bottom: 30px;
+}
+#user-formbox{
+  text-align: center;
+}
+#signup{
+  text-decoration: none;
+}
+#login{
+  text-decoration: none;
 }
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126

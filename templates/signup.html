@@ -7,17 +7,17 @@
 </head>
 <body>
   <article>
-      This is a test signup form.
-      <form class="signup-form" action="//localhost:8080/user/signup" method="post">
-          <label>Username</label><br>
+      <h1 style="text-align:center;">アカウント登録</h1>
+      <form class="signup-form" action="/user/signup" method="post">
+          <label>ユーザー名</label><br>
           <input type="text" name="username"><br>
-          <label>E-mail</label><br>
+          <label>メールアドレス</label><br>
           <input type="text" name="emailaddress"><br>
-          <label>Password</label><br>
+          <label>パスワード</label><br>
           <input type="password" name="password"><br>
-          <label>Password Confirmation</label><br>
+          <label>パスワード確認</label><br>
           <input type="password" name="passwordconfirmation"><br>
-          <label>または</label><a href="//localhost:8080/login">ログイン</a>
+          <label>または</label><a href="/login">ログイン</a>
           <input type="submit" value="送信">
       </form>
   </article>
