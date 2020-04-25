@@ -1,9 +1,8 @@
 module gopractice
 
-go 1.12.17
+go 1.14
 
 require (
-	github.com/agext/uuid v1.1.0
 	github.com/gin-gonic/gin v1.6.2
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/gorilla/context v1.1.1
