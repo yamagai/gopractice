@@ -1,6 +1,6 @@
 module gopractice
 
-go 1.14
+go 1.12.17
 
 require (
 	github.com/agext/uuid v1.1.0
