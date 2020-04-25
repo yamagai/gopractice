@@ -77,13 +77,13 @@ func UserDbInsert(username, email, password string) error{
 //     if err != nil {
 //         panic("データベース失敗（dbUpdate)")
 //     }
-//     var himajin Himajin
-//     db.First(&himajin, id)
-//     himajin.Name = name
-//     himajin.Begintime = begintime
-//     himajin.Finishtime = finishtime
-//     himajin.Todo = todo
-//     db.Save(&himajin)
+//     var Post Post
+//     db.First(&Post, id)
+//     Post.Name = name
+//     Post.Begintime = begintime
+//     Post.Finishtime = finishtime
+//     Post.Todo = todo
+//     db.Save(&Post)
 //     db.Close()
 // }
 //
@@ -93,22 +93,22 @@ func UserDbInsert(username, email, password string) error{
 //     if err != nil {
 //         panic("データベース失敗（dbDelete)")
 //     }
-//     var himajin Himajin
-//     db.First(&himajin, id)
-//     db.Delete(&himajin)
+//     var Post Post
+//     db.First(&Post, id)
+//     db.Delete(&Post)
 //     db.Close()
 // }
 //
 // //DB全取得
-// func UserDbGetAll() []Himajin {
+// func UserDbGetAll() []Post {
 //     db, err := gorm.Open(config.GetDBConfig())
 //     if err != nil {
 //         panic("データベース失敗(dbGetAll())")
 //     }
-//     var himajins []Himajin
-//     db.Order("created_at desc").Find(&himajins)
+//     var Posts []Post
+//     db.Order("created_at desc").Find(&Posts)
 //     db.Close()
-//     return himajins
+//     return Posts
 // }
 
 //DBからusername一致するもの一つ取得

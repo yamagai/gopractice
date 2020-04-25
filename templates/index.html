@@ -19,7 +19,7 @@
 
       <form method="post" action="/new">
           <p>名前：{{ .username }}</p>
-          <input type="hidden" name="name" size="30" value="{{ .username }}" maxlength="30">
+          <input type="hidden" name="username" size="30" value="{{ .username }}" maxlength="30">
           <p>暇な日時：<input type="datetime-local" name="begintime">〜<input type="datetime-local" name="finishtime"></p>
           <p>やりたいこと：<input type="text" name="todo" size="30" placeholder="例)Zoom飲み会" maxlength="30"></p>
           <p id="sendbutton"><input type="submit" value="送信"></p>
@@ -35,10 +35,11 @@
     <div style="text-align: center;border:solid;padding-top:15px;">名前</div>
     <div style="text-align: center;border:solid;padding-top:15px;">暇な日時</div>
     <div style="text-align: center;border:solid;padding-top:15px;">やりたいこと</div>
-    <div style="text-align: center;border:solid;padding-top:15px;">編集・削除</div>
-    {{ range .himajins }}
+    <div style="text-align: center;border:solid;padding-top:15px;">処理</div>
+    {{ $user_name := .username }}
+    {{ range .Posts }}
       <div style="text-align: center;padding: 40px 0px;">
-        {{ .Name }}
+        {{ .PostUsername }}
       </div>
       <div id="times" style="text-align: center;padding: 40px 0px;">
         {{ .Begintime }}~{{ .Finishtime }}
@@ -46,10 +47,12 @@
       <div style="text-align: center;padding: 40px 0px;">
         {{.Todo}}
       </div>
-      <div style="text-align: center;padding: 40px 0px;">
-        <label><a href="/detail/{{.ID}}">編集</a></label>
-        <label><a href="/delete_check/{{.ID}}">削除</a></label>
-      </div>
+      {{ if eq $user_name .PostUsername}}
+        <div style="text-align: center;padding: 40px 0px;">
+          <label><a href="/detail/{{.ID}}">編集</a></label>
+          <label><a href="/delete_check/{{.ID}}">削除</a></label>
+        </div>
+      {{ end }}
     {{end}}
   </div>
   <script src="https://code.jquery.com/jquery-3.4.1.js"></script>

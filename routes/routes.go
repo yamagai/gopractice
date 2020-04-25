@@ -21,7 +21,7 @@ func NoRoute(ctx *gin.Context) {
 }
 //index
 func Index(ctx *gin.Context) {
-  himajin := models.DbGetAll()
+  post := models.DbGetAll()
   session := sessions.GetDefaultSession(ctx)
    buffer, exists := session.Get("user")
    if !exists {
@@ -29,7 +29,7 @@ func Index(ctx *gin.Context) {
         println("  sessionID: " + session.ID)
         session.Save()
         ctx.HTML(http.StatusOK, "index.html", gin.H{
-          "himajins": himajin,
+          "Posts": post,
         })
         return
     }
@@ -40,7 +40,7 @@ func Index(ctx *gin.Context) {
    println("  email: " + user.Email)
    session.Save()
     ctx.HTML(http.StatusOK, "index.html", gin.H{
-        "himajins": himajin,
+        "Posts": post,
         "isLoggedIn": exists,
         "username": user.Username,
         "email": user.Email,
@@ -49,11 +49,11 @@ func Index(ctx *gin.Context) {
 
 //create
 func Create(ctx *gin.Context) {
-    name := ctx.PostForm("name")
+    username := ctx.PostForm("username")
     begintime := ctx.PostForm("begintime")
     finishtime := ctx.PostForm("finishtime")
     todo := ctx.PostForm("todo")
-    models.DbInsert(name, begintime, finishtime, todo)
+    models.DbInsert(username, begintime, finishtime, todo)
     ctx.Redirect(302, "/")
 }
 
@@ -64,8 +64,8 @@ func Detail(ctx *gin.Context) {
     if err != nil {
         panic(err)
     }
-    himajin := models.DbGetOne(id)
-    ctx.HTML(http.StatusOK, "detail.html", gin.H{"himajins": himajin})
+    post := models.DbGetOne(id)
+    ctx.HTML(http.StatusOK, "detail.html", gin.H{"Posts": post})
 }
 
 //update
@@ -75,11 +75,10 @@ func Update(ctx *gin.Context) {
     if err != nil {
         panic("ERROR")
     }
-    name := ctx.PostForm("name")
     begintime := ctx.PostForm("begintime")
     finishtime := ctx.PostForm("finishtime")
     todo := ctx.PostForm("todo")
-    models.DbUpdate(id, name, begintime, finishtime, todo)
+    models.DbUpdate(id, begintime, finishtime, todo)
     ctx.Redirect(302, "/")
 }
 
@@ -90,8 +89,8 @@ func Deletecheck(ctx *gin.Context) {
     if err != nil {
         panic("ERROR")
     }
-    himajin := models.DbGetOne(id)
-    ctx.HTML(http.StatusOK, "delete.html", gin.H{"himajins": himajin})
+    Post := models.DbGetOne(id)
+    ctx.HTML(http.StatusOK, "delete.html", gin.H{"Posts": Post})
 }
 
 //Delete
